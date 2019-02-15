@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   jira:
-    image: cptactionhank/atlassian-jira:7.9.2
+    image: cptactionhank/atlassian-jira:latest
     restart: always
     links:
       - database
@@ -9,7 +9,7 @@ services:
       - jira-data:/var/atlassian/jira
 
   confluence:
-    image: cptactionhank/atlassian-confluence:6.9.0
+    image: cptactionhank/atlassian-confluence:latest
     restart: always
     links:
       - database
@@ -17,12 +17,20 @@ services:
       - confluence-data:/var/atlassian/confluence
 
   bitbucket:
-    image: atlassian/bitbucket-server:5.10.1
+    image: atlassian/bitbucket-server:latest
     restart: always
     links:
       - database
     volumes:
       - bitbucket-data:/var/atlassian/application-data/bitbucket
+
+  jira-service-desk:
+    image: cptactionhank/atlassian-jira-service-desk:latest
+    restart: always
+    links:
+      - database
+    volumes:
+      - jira-service-desk-data:/var/atlassian/application-data/jira-service-desk
 
   database:
     image: postgres:9.4
@@ -48,3 +56,4 @@ volumes:
   confluence-data:
   bitbucket-data:
   database-data:
+  jira-service-desk-data:
